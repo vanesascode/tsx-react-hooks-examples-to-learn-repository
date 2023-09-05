@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function TodoList() {
   const [todos, setTodos] = useState<string[]>([]);
   const [todoInput, setTodoInput] = useState<string>("");
+  const [items, setItems] = useState<number>(0);
 
   const addTodo = (): void => {
     setTodos([...todos, todoInput]);
@@ -14,6 +15,11 @@ function TodoList() {
     newTodos.splice(index, 1);
     setTodos(newTodos);
   };
+
+  useEffect(() => {
+    const itemsLeft = todos.length;
+    setItems(itemsLeft);
+  }, [todos]);
 
   return (
     <>
@@ -37,6 +43,7 @@ function TodoList() {
           </div>
         </div>
       ))}
+      <div>{items} items left</div>
     </>
   );
 }
