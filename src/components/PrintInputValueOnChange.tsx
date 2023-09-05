@@ -1,6 +1,6 @@
 import { useEffect, useState, ChangeEvent } from "react";
 
-const PrintInputValue = () => {
+const PrintInputValueOnChange = () => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const validateInput = () => {
@@ -33,7 +33,7 @@ const PrintInputValue = () => {
   );
 };
 
-export default PrintInputValue;
+export default PrintInputValueOnChange;
 
 //////////////////// DIFFERENCE BETWEEN THIS:
 

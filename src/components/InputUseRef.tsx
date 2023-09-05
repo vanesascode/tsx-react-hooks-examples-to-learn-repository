@@ -1,10 +1,10 @@
-import { useRef } from "react";
+import { useRef, FormEvent } from "react";
 
 const InputUseRef = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(emailRef.current?.value);
     console.log(passwordRef.current?.value);
