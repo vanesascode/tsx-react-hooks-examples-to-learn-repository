@@ -16,7 +16,7 @@ const FetchAbortController = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/post",
+          "https://jsonplaceholder.typicode.com/posts",
           {
             signal: abortController.signal,
           }
@@ -48,7 +48,8 @@ const FetchAbortController = () => {
         <ul>
           {data.map((item) => (
             <li key={item.id}>
-              {item.title} - {item.body}
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
             </li>
           ))}
         </ul>

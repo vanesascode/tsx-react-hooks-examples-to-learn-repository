@@ -3,6 +3,8 @@ import {
   PrintInputValueOnChange,
   UseMemoEfficiency,
   FetchAbortController,
+  FetchAsyncEasy,
+  FetchThenEasy,
 } from "./components";
 
 import { ErrorBoundary } from "react-error-boundary";
@@ -12,11 +14,20 @@ function App() {
     <>
       <PrintInputValueOnClickUseState />
       <PrintInputValueOnChange />
+
       <UseMemoEfficiency />
+      <div style={{ backgroundColor: "blue" }}>
+        <FetchAsyncEasy />
+      </div>
+      <div style={{ backgroundColor: "red" }}>
+        <FetchThenEasy />
+      </div>
       <ErrorBoundary
         fallback={<div>Sorry, the data couldn't be loaded :)</div>}
       >
-        <FetchAbortController />
+        <div style={{ backgroundColor: "pink" }}>
+          <FetchAbortController />
+        </div>
       </ErrorBoundary>
     </>
   );

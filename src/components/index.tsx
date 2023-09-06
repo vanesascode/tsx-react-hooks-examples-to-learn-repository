@@ -7,6 +7,8 @@ import PropsExampleCard from "./PropsExampleCard";
 import PropsExampleMainComponent from "./PropsExampleMainComponent";
 import UseMemoEfficiency from "./UseMemoEfficiency";
 import FetchAbortController from "./FetchAbortController";
+import FetchAsyncEasy from "./FetchAsyncEasy";
+import FetchThenEasy from "./FetchThenEasy";
 
 export {
   InputUseRef,
@@ -18,4 +20,6 @@ export {
   PropsExampleMainComponent,
   UseMemoEfficiency,
   FetchAbortController,
+  FetchAsyncEasy,
+  FetchThenEasy,
 };

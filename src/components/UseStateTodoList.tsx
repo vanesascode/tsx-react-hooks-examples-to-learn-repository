@@ -6,8 +6,10 @@ function TodoList() {
   const [items, setItems] = useState<number>(0);
 
   const addTodo = (): void => {
-    setTodos([...todos, todoInput]);
-    setTodoInput("");
+    if (todoInput.trim() !== "") {
+      setTodos([...todos, todoInput]);
+      setTodoInput("");
+    }
   };
 
   const deleteTodo = (index: number) => {
@@ -43,9 +45,13 @@ function TodoList() {
           </div>
         </div>
       ))}
-      <div>{items} items left</div>
+      <div>
+        {items} {items === 1 ? "item" : "items"} items left
+      </div>
     </>
   );
 }
 
 export default TodoList;
+
+//The  trim()  function is a built-in JavaScript method that removes whitespace (spaces, tabs, and newlines) from both the beginning and end of a string. It returns a new string with the leading and trailing whitespace removed.
