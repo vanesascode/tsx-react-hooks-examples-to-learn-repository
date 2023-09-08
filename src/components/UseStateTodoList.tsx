@@ -46,7 +46,7 @@ function TodoList() {
         </div>
       ))}
       <div>
-        {items} {items === 1 ? "item" : "items"} items left
+        {items} {items === 1 ? "item" : "items"} left
       </div>
     </>
   );

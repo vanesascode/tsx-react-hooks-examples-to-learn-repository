@@ -9,6 +9,8 @@ import UseMemoEfficiency from "./UseMemoEfficiency";
 import FetchAbortController from "./FetchAbortController";
 import FetchAsyncEasy from "./FetchAsyncEasy";
 import FetchThenEasy from "./FetchThenEasy";
+import TodoListFetchApi from "./TodoListFetchApi";
+import WeatherApi from "./WeatherApi";
 
 export {
   InputUseRef,
@@ -22,4 +24,6 @@ export {
   FetchAbortController,
   FetchAsyncEasy,
   FetchThenEasy,
+  TodoListFetchApi,
+  WeatherApi,
 };

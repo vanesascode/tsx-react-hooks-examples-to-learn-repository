@@ -5,6 +5,7 @@ import {
   FetchAbortController,
   FetchAsyncEasy,
   FetchThenEasy,
+  WeatherApi,
 } from "./components";
 
 import { ErrorBoundary } from "react-error-boundary";
@@ -12,6 +13,7 @@ import { ErrorBoundary } from "react-error-boundary";
 function App() {
   return (
     <>
+      <WeatherApi />
       <PrintInputValueOnClickUseState />
       <PrintInputValueOnChange />
 
