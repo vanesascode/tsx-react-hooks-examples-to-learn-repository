@@ -1,95 +1,133 @@
 import { useState, useEffect } from "react";
 
 interface Todo {
-  id: number;
   label: string;
   done: boolean;
 }
 
-function TodoList() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+function TodoListFetchApi() {
+  // Every task:
   const [todoInput, setTodoInput] = useState<string>("");
+
+  // List of tasks:
+  const [data, setData] = useState<Todo[]>([]);
+
+  // Number of items to count them at the bottom:
   const [items, setItems] = useState<number>(0);
 
-  const username: string = "vanesa_juarez";
-  const url: string = `https://playground.4geeks.com/apis/fake/todos/user/${username}`;
-  const requestOptions: RequestInit = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify([]),
-  };
+  // API REQUESTS: /////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////////////////
+
+  // CREATE USER //////////////////////////////////////////////////////////
+
+  // useEffect(() => {
+
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     body: JSON.stringify([]),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   };
+
+  //   fetch("https://playground.4geeks.com/apis/fake/todos/user/vanesa", requestOptions)
+  //     .then( response =>  response.json())
+  //     .then(result => setData(result))
+  // }, []);
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  // GET THE DATA ///////////////////////////////////////////////////////////////////
+
+  // requestsOptions are not necessary, by default it's 'GET':
+
+  // const requestOptions = {
+  //   method: 'GET',
+  // };
 
   const fetchTodos = () => {
-    fetch(url)
+    fetch("https://playground.4geeks.com/apis/fake/todos/user/vanesascode")
       .then((response) => response.json())
-      .then((data: Todo[]) => {
-        setTodos(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      .then((result: Todo[]) => setData(result))
+      // .then(data => console.log(data))
+      .catch((error) => console.log("Error:", error));
   };
 
   useEffect(() => {
     fetchTodos();
   }, []);
 
+  ///////////////////////////////////////////////////////////
+
+  // ADD TASKS //
+
   const addTodo = () => {
     if (todoInput.trim() !== "") {
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify([
-          ...todos,
-          { id: Date.now(), label: todoInput, done: false },
-        ]),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.result === "ok") {
-            fetchTodos();
-            setTodoInput("");
-          } else {
-            console.log("Failed to create new todo");
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      setData([...data, { label: todoInput, done: false }]);
+      setTodoInput("");
     }
   };
 
-  const deleteTodo = (index: number) => {
-    const todoId = todos[index].id;
-    fetch(`${url}/${todoId}`, {
-      method: "DELETE",
-    })
+  ////////////////////////////////////////////////////////////
+
+  // UPDATE DATA //
+
+  useEffect(() => {
+    const requestOptions: RequestInit = {
+      method: "PUT",
+      body: JSON.stringify(data),
+      redirect: "follow",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    fetch(
+      "https://playground.4geeks.com/apis/fake/todos/user/vanesascode",
+      requestOptions
+    )
       .then((response) => response.json())
-      .then((data) => {
-        if (data.result === "ok") {
+      .then((result) => {
+        if (result.result === "ok") {
           fetchTodos();
         } else {
-          console.log("Failed to delete todo");
+          console.log("Failed to create new todo");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+  }, [data]);
+
+  ///////////////////////////////////////////////////////////////////////////////
+
+  // DELETE TASKS //
+
+  const deleteTodo = (task: any) => {
+    console.log(task);
+    task.done = true;
+    const newData = data.filter((e) => e.done != true);
+    setData(newData);
   };
 
+  /////////////////////////////////////////////////////////////////////////////////
+
+  //Counter of number of tasks:
+
   useEffect(() => {
-    const itemsLeft = todos.length;
+    const itemsLeft = data.length;
     setItems(itemsLeft);
-  }, [todos]);
+  }, [data]);
+
+  /////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className="d-flex justify-content-center">
       <div className="col-md-4">
         <div className="layer1 d-flex justify-content-start flex-column border-0 shadow z-3">
+          {/* input*/}
+
           <input
             type="text"
             value={todoInput}
@@ -102,18 +140,27 @@ function TodoList() {
             }}
             className="border-0 px-5 py-3 input fs-2"
           />
-          {todos.map((todo, index) => (
+
+          {/* tasks*/}
+
+          {data.map((task, index) => (
             <div
               key={index}
               className="bg-white item-box border-top w-full px-5 py-3 d-flex justify-content-between fs-2"
-              onClick={() => deleteTodo(index)}
+              onClick={() => deleteTodo(task)}
             >
-              <div className="me-5">{todo.label}</div>
+              <div className="me-5">{task.label}</div>
+
+              {/* erase button*/}
+
               <div>
                 <button>X</button>
               </div>
             </div>
           ))}
+
+          {/* number of tasks in the list*/}
+
           <div className="d-flex justify-content-end border-top bg-white">
             <div className="py-2 px-5 fs-5 bg-white">
               {items} {items === 1 ? "item" : "items"} left
@@ -125,4 +172,4 @@ function TodoList() {
   );
 }
 
-export default TodoList;
+export default TodoListFetchApi;

@@ -6,6 +6,7 @@ import {
   FetchAsyncEasy,
   FetchThenEasy,
   WeatherApi,
+  TodoListFetchApi,
 } from "./components";
 
 import { ErrorBoundary } from "react-error-boundary";
@@ -13,6 +14,7 @@ import { ErrorBoundary } from "react-error-boundary";
 function App() {
   return (
     <>
+      <TodoListFetchApi />
       <WeatherApi />
       <PrintInputValueOnClickUseState />
       <PrintInputValueOnChange />
